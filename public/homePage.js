@@ -19,15 +19,16 @@ ApiConnector.current(response => {
 
 const rates = new RatesBoard();
 
-
-ApiConnector.getStocks(response => {
-    if(response.success) {
-        rates.clearTable();
-        rates.fillTable(response.data)
-    }
-});
-
-setInterval(ApiConnector.getStocks, 60000);
+function updateStocks() {
+    ApiConnector.getStocks(response => {
+        if(response.success) {
+            rates.clearTable();
+            rates.fillTable(response.data)
+        }
+    });
+}
+updateStocks();
+setInterval(updateStocks, 60000);
 
 const maneyManager = new MoneyManager();
 
